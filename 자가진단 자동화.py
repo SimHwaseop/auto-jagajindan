@@ -49,7 +49,10 @@ def dayoff():
 for i in range(2):
     if dayoff() == False:
         
-        driver = webdriver.Chrome()
+        #options = webdriver.ChromeOptions()
+        #options.add_experimental_option("excludeSwitches", ["enable-logging"])
+        #driver = webdriver.Chrome('auto-jagajindan\chromedriver.exe',options=options)
+        driver = webdriver.Chrome('auto-jagajindan\chromedriver.exe')
         url = 'https://hcs.eduro.go.kr/#/loginHome'
 
         driver.get(url)
@@ -92,6 +95,7 @@ for i in range(2):
 
         #여기도 가끔 오류남
         time.sleep(1)
+        # driver.implicitly_wait(10) ## 암묵적으로 웹 자원을 (최대) 10초 기다리기
 
         #보안 키패드 클릭
         driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr/td/div/button').click()
@@ -147,7 +151,6 @@ for i in range(2):
 
         #오류로 인한 일시정지
         time.sleep(1)
-
         #계정 선택 (미참여 인거)
         driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a[1]').click()
 
