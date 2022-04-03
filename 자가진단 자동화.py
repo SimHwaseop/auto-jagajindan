@@ -8,8 +8,40 @@ from bs4 import BeautifulSoup
 # 브라우저 자동화 라이브러리
 from selenium import webdriver
 
-#시간
-import time
+import time,csv
+
+
+f = open('./test.csv',  encoding="utf-8") #파일이 있는 경로+파일이름.csv
+f_csv = csv.reader(f)
+csv1=[]
+for fcsv in f_csv :
+    csv1.append(fcsv)
+
+csvname = csv1[0]
+csvbirthday = csv1[1]
+csvpassword = csv1[2]
+
+
+#비밀번호를 각각 한자리 숫자로 변환후 리스트로 반환
+passeach = []
+pa0 = csv1[2]
+pa1 = list((str(pa0)))
+for w in range(2,len(pa1)-2):
+    passeach.append(pa1[w])
+
+inputname =
+inputbirthday =
+inputpassword =
+
+
+
+
+f = open('test.csv', 'w', newline='', encoding="utf-8")
+f.write( name+'\n')
+f.write(birthday+'\n')
+f.write(password)
+f.close()
+
 
 #휴일 정보 불러오는 거
 def dayoff():
@@ -45,14 +77,55 @@ def dayoff():
                 return True
     return False
 
+def userpassword(up1,up2,up3,up4):
+    p1 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[4]/a')
+    p2 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[1]')
+    p3 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[2]')
+    p4 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[3]')
+    p5 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[4]')
+    p6 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[6]/a')
+    p7 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[7]/a')
+    p8 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[8]/a[1]')
+    p9 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[8]/a[2]')
+    p10 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[8]/a[3]')
+    p11 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[8]/a[4]')
+    p12 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[9]/a')
+        
+    #비밀번호 위치를 리스트로 변환?저장?
+    password = [p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12]
+
+    # 현재 html을 soup에 저장
+    soup = BeautifulSoup(driver.page_source, 'html.parser')
+
+    # l 이라는 list에 현재 비밀번호 각각의 위치 저장
+    l=[]
+    for i in range(1+4,12+4+1):
+        l.append(soup.select('a')[i]['aria-label'])
+
+    # 지정된 번호와 현재 비밀번호 위치를 비교하여
+    # 지정된 숫자가 있는 위치의 순서를 반환하여 그 위치를 클릭 함 
+    def Choosepassword(c):
+        #함수를 쓰기위한 0 ~ 9 까지의 리스트
+        num09=['0','1','2','3','4','5','6','7','8','9']
+        for j in range(c,12+1):
+            if l[j]==num09[c]:
+                password[j].click()
+                print(j)
+                break
+
+    #비밀번호
+    Choosepassword(int(up1))
+    Choosepassword(int(up2))
+    Choosepassword(int(up3))
+    Choosepassword(int(up4))
 
 for i in range(2):
-    if dayoff() == False:
+    if dayoff() == True: #False:
         
         #options = webdriver.ChromeOptions()
         #options.add_experimental_option("excludeSwitches", ["enable-logging"])
         #driver = webdriver.Chrome('auto-jagajindan\chromedriver.exe',options=options)
-        driver = webdriver.Chrome('auto-jagajindan\chromedriver.exe')
+        driver = webdriver.Chrome('chromedriver.exe')
         url = 'https://hcs.eduro.go.kr/#/loginHome'
 
         driver.get(url)
@@ -95,7 +168,8 @@ for i in range(2):
 
         #여기도 가끔 오류남
         time.sleep(1)
-        # driver.implicitly_wait(10) ## 암묵적으로 웹 자원을 (최대) 10초 기다리기
+        # driver.implicitly_wait(10) ## 암묵적으로 웹 자원을 (최대) 10초 기다리기 
+        # 이거 아닌가봄
 
         #보안 키패드 클릭
         driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr/td/div/button').click()
@@ -103,48 +177,7 @@ for i in range(2):
         #여기는 체크하지 않음
         time.sleep(1)
 
-        # 비밀번호 0 ~ 9 의 위치 (랜덤 빈칸 2개) 
-        p1 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[4]/a')
-        p2 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[1]')
-        p3 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[2]')
-        p4 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[3]')
-        p5 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[4]')
-        p6 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[6]/a')
-        p7 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[7]/a')
-        p8 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[8]/a[1]')
-        p9 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[8]/a[2]')
-        p10 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[8]/a[3]')
-        p11 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[8]/a[4]')
-        p12 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[9]/a')
-
-        #비밀번호 위치를 리스트로 변환?저장?
-        password = [p1,p2,p3,p4,p5,p6,p7,p8,p9,p10,p11,p12]
-
-        # 현재 html을 soup에 저장
-        soup = BeautifulSoup(driver.page_source, 'html.parser')
-
-        # l 이라는 list에 현재 비밀번호 각각의 위치 저장
-        l=[]
-        for i in range(1+4,12+4+1):
-            l.append(soup.select('a')[i]['aria-label'])
-
-        #함수를 쓰기위한 0 ~ 9 까지의 리스트
-        num09=['0','1','2','3','4','5','6','7','8','9']
-
-        # 지정된 번호와 현재 비밀번호 위치를 비교하여
-        # 지정된 숫자가 있는 위치의 순서를 반환하여 그 위치를 클릭 함 
-        def Choosepassword(c):
-            for j in range(c,12+1):
-                if l[j]==num09[c]:
-                    password[j].click()
-                    print(j)
-                    break
-
-        #비밀번호
-        Choosepassword(5)
-        Choosepassword(8)
-        Choosepassword(4)
-        Choosepassword(0)
+        userpassword('5','8','4','0')
 
         #비밀번호 확인
         driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
