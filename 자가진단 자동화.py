@@ -10,7 +10,7 @@ from selenium import webdriver
 
 import time,csv
 
-
+'''
 f = open('./test.csv',  encoding="utf-8") #파일이 있는 경로+파일이름.csv
 f_csv = csv.reader(f)
 csv1=[]
@@ -41,7 +41,7 @@ f.write( name+'\n')
 f.write(birthday+'\n')
 f.write(password)
 f.close()
-
+'''
 
 #휴일 정보 불러오는 거
 def dayoff():
@@ -113,11 +113,15 @@ def userpassword(up1,up2,up3,up4):
                 print(j)
                 break
 
-    #비밀번호
-    Choosepassword(int(up1))
-    Choosepassword(int(up2))
-    Choosepassword(int(up3))
-    Choosepassword(int(up4))
+    ##비밀번호
+    #Choosepassword(int(up1))
+    #Choosepassword(int(up2))
+    #Choosepassword(int(up3))
+    #Choosepassword(int(up4))
+    Choosepassword(5)
+    Choosepassword(8)
+    Choosepassword(4)
+    Choosepassword(0)
 
 for i in range(2):
     if dayoff() == True: #False:
