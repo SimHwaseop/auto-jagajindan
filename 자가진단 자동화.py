@@ -113,15 +113,12 @@ def userpassword(up1,up2,up3,up4):
                 print(j)
                 break
 
-    ##비밀번호
-    #Choosepassword(int(up1))
-    #Choosepassword(int(up2))
-    #Choosepassword(int(up3))
-    #Choosepassword(int(up4))
-    Choosepassword(5)
-    Choosepassword(8)
-    Choosepassword(4)
-    Choosepassword(0)
+    #비밀번호
+    Choosepassword(int(up1))
+    Choosepassword(int(up2))
+    Choosepassword(int(up3))
+    Choosepassword(int(up4))
+    
 
 for i in range(2):
     if dayoff() == True: #False:
@@ -181,7 +178,7 @@ for i in range(2):
         #여기는 체크하지 않음
         time.sleep(1)
 
-        userpassword('5','8','4','0')
+        userpassword('0','0','0','0')
 
         #비밀번호 확인
         driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
