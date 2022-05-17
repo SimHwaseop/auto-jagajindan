@@ -42,6 +42,7 @@ f.write(birthday+'\n')
 f.write(password)
 f.close()
 '''
+#print(11111111111)
 
 #휴일 정보 불러오는 거
 def dayoff():
@@ -121,7 +122,7 @@ def userpassword(up1,up2,up3,up4):
     
 
 for i in range(2):
-    if dayoff() == True: #False:
+    if dayoff() == False: #True:
         
         #options = webdriver.ChromeOptions()
         #options.add_experimental_option("excludeSwitches", ["enable-logging"])
@@ -165,7 +166,7 @@ for i in range(2):
         driver.find_element_by_xpath('//*[@id="birthday_input"]').send_keys('040331')
 
         #확인
-        driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
+        #driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
 
         #여기도 가끔 오류남
         time.sleep(1)
@@ -173,18 +174,18 @@ for i in range(2):
         # 이거 아닌가봄
 
         #보안 키패드 클릭
-        driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr/td/div/button').click()
+        driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr[4]/td/div/button').click()
 
         #여기는 체크하지 않음
         time.sleep(1)
 
-        userpassword('0','0','0','0')
+        userpassword('5','8','4','0')
 
         #비밀번호 확인
         driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
 
         #오류로 인한 일시정지
-        time.sleep(1)
+        time.sleep(2)
         #계정 선택 (미참여 인거)
         driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a[1]').click()
 
@@ -195,10 +196,10 @@ for i in range(2):
         driver.find_element_by_xpath('//*[@id="survey_q1a1"]').click()
 
         # 2. 신속항원검사 검사하지 않음
-        #driver.find_element_by_xpath('//*[@id="survey_q2a3"]').click()
+        driver.find_element_by_xpath('//*[@id="survey_q2a3"]').click()
 
         # 2-1. 신속항원검사 음성 (월,수)
-        driver.find_element_by_xpath('//*[@id="survey_q2a1"]').click()
+        #driver.find_element_by_xpath('//*[@id="survey_q2a1"]').click()
 
         # 3. 본인 또는 동거인 PCR검사결과 기다리고 있니요? 아니요
         driver.find_element_by_xpath('//*[@id="survey_q3a1"]').click()
@@ -209,7 +210,7 @@ for i in range(2):
         #끝남
         #시간하고 요일 만 만들면 됨
 
-        #time.sleep(5400)
+        time.sleep(5400)
 
         #탭 혹은 창 닫기
         #driver.close()
