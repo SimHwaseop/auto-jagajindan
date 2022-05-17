@@ -11,6 +11,7 @@ from selenium import webdriver
 import time,csv
 
 '''
+
 f = open('./test.csv',  encoding="utf-8") #파일이 있는 경로+파일이름.csv
 f_csv = csv.reader(f)
 csv1=[]
