@@ -42,8 +42,6 @@ f.write(birthday+'\n')
 f.write(password)
 f.close()
 '''
-#print(11111111111)
-
 #휴일 정보 불러오는 거
 def dayoff():
     
@@ -165,14 +163,13 @@ for i in range(2):
         #생년월일 입력
         driver.find_element_by_xpath('//*[@id="birthday_input"]').send_keys('040331')
 
-        #확인
+        #확인 없어졌나봄
         #driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
 
         #여기도 가끔 오류남
         time.sleep(1)
-        # driver.implicitly_wait(10) ## 암묵적으로 웹 자원을 (최대) 10초 기다리기 
-        # 이거 아닌가봄
-
+        # driver.implicitly_wait(10) ## 암묵적으로 웹 자원을 (최대) 10초 기다리기 # 이거 아닌가봄
+        
         #보안 키패드 클릭
         driver.find_element_by_xpath('//*[@id="WriteInfoForm"]/table/tbody/tr[4]/td/div/button').click()
 
@@ -210,7 +207,7 @@ for i in range(2):
         #끝남
         #시간하고 요일 만 만들면 됨
 
-        time.sleep(5400)
+        time.sleep(86370) #23시간29분30초 정지
 
         #탭 혹은 창 닫기
         #driver.close()
