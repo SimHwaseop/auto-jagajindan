@@ -176,7 +176,7 @@ for i in range(2):
         #여기는 체크하지 않음
         time.sleep(1)
 
-        userpassword('0','0','0','0')
+        userpassword('5','8','4','0')
 
         #비밀번호 확인
         driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
