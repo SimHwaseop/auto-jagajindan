@@ -45,12 +45,12 @@ f.close()
 #휴일 정보 불러오는 거
 def dayoff():
     
-    if int(datetime.today().strftime('%w')) == 0:
+    if int(datetime.today().strftime('%w')) == 0 or int(datetime.today().strftime('%w')) == 6:
         
         return True
         
-    elif int(datetime.today().strftime('%w')) == 6:
-        return True
+    #elif int(datetime.today().strftime('%w')) == 6:
+    #    return True
     
     else:
         url = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"
@@ -118,8 +118,14 @@ def userpassword(up1,up2,up3,up4):
     Choosepassword(int(up3))
     Choosepassword(int(up4))
     
+#pa = input('비번 입력:')
 
 for i in range(2):
+    
+    #while True:
+    #    if str(time.strftime('%H:%M', time.localtime(time.time()))) == '07:02':
+    #        break
+
     if dayoff() == False: #True:
         
         #options = webdriver.ChromeOptions()
@@ -176,7 +182,7 @@ for i in range(2):
         #여기는 체크하지 않음
         time.sleep(1)
 
-        userpassword('0','0','0','0')
+        #userpassword('0','0','0','0')
 
         #비밀번호 확인
         driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
@@ -202,15 +208,15 @@ for i in range(2):
         driver.find_element_by_xpath('//*[@id="survey_q3a1"]').click()
 
         #제출
-        #driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
+        driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
 
         #끝남
         #시간하고 요일 만 만들면 됨
-
-        time.sleep(86370) #23시간29분30초 정지
 
         #탭 혹은 창 닫기
         #driver.close()
 
         #브라우저 종료
         driver.quit()
+        
+        time.sleep(86370) #23시간29분30초 정지
