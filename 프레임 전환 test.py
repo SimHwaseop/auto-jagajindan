@@ -1,10 +1,13 @@
-import csv
+import csv, time
 import tkinter
 from tkinter import ttk
     
 class SampleApp(tkinter.Tk):
     def __init__(window):
         tkinter.Tk.__init__(window)
+        window.title("자가진단")
+        window.geometry("290x210")#("260x210") #가로 세로 x좌표이동 y좌표이동
+        window.resizable(False,False) #xy좌표변경안됨
         window._frame = None
         window.switch_frame(StartPage)
 
@@ -27,19 +30,22 @@ class StartPage(tkinter.Frame):
         start_time.set(csv_info[0]),user_name.set(csv_info[1]), user_birthday.set(csv_info[2]), user_password.set(csv_info[3])
 
         def data_check():
-            lambda: master.switch_frame(PageOne)
-            if start_time.get() == csv_info[0] and user_name.get() == csv_info[1] and user_birthday.get() == csv_info[2] and user_password.get() == csv_info[3]:
-                print("같음")
+            if start_time.get() == str(csv_info[0]) and user_name.get() == str(csv_info[1]) and user_birthday.get() == str(csv_info[2]) and user_password.get() == str(csv_info[3]):
+                master.switch_frame(SamePage)
+                def test():
+                    while True:
+                        print('실행중')
+                        time.sleep(1)
+                test()
             else:
-                print("다름")
+                master.switch_frame(DifferentPage)
                 
-
         tkinter.Frame.__init__(window, master)
         ttk.Label(window, text = "실행 시간" ).grid(row = 0, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = "이름" ).grid(row = 1, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = "생년월일").grid(row = 2, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = "비밀번호").grid(row = 3, column = 0, padx = 10, pady = 10)
-        ttk.Button(window, text="one",command=lambda: master.switch_frame(PageOne)).grid(row = 4, column = 0, padx = 10, pady = 10)
+        #ttk.Button(window, text="one",command=lambda: master.switch_frame(PageOne)).grid(row = 4, column = 0, padx = 10, pady = 10)
         ttk.Entry(window, textvariable = start_time).grid(row = 0, column = 1, padx = 10, pady = 10)
         ttk.Entry(window, textvariable = user_name).grid(row = 1, column = 1, padx = 10, pady = 10)
         ttk.Entry(window, textvariable = user_birthday).grid(row = 2, column = 1, padx = 10, pady = 10)
@@ -53,26 +59,53 @@ class StartPage(tkinter.Frame):
         #tkinter.Button(self, text="Go to page two",
         #          command=lambda: master.switch_frame(PageTwo)).pack()
 
-class PageOne(tkinter.Frame):
+class DifferentPage(tkinter.Frame):
     def __init__(window, master):
         tkinter.Frame.__init__(window, master)
-        ttk.Label(window, text = "실행 시간" ).grid(row = 0, column = 0, padx = 10, pady = 10)
-        ttk.Label(window, text = "이름" ).grid(row = 1, column = 0, padx = 10, pady = 10)
-        ttk.Label(window, text = "생년월일").grid(row = 2, column = 0, padx = 10, pady = 10)
-        ttk.Label(window, text = "비밀번호").grid(row = 3, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = " " ).grid(row = 0, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = " 정보가 다릅니다." ).grid(row = 1, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = "입력된 정보를 저장하고 실행 하시겠습니까?").grid(row = 2, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 3, column = 0, padx = 10, pady = 10)
+        ttk.Button(window, text= "취소", command =lambda: master.switch_frame(StartPage)).grid(row = 4, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 0, column = 1, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 1, column = 1, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 2, column = 1, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 3, column = 1, padx = 10, pady = 10)
+        ttk.Button(window, text= "저장&실행", command=lambda: master.switch_frame(SamePage)).grid(row = 4, column = 1, padx = 10, pady = 10)
+        
         #tkinter.Frame.__init__(self, master)
         #tkinter.Frame.configure(self,bg='blue')
         #tkinter.Label(self, text="Page one", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
         #tkinter.Button(self, text="Go back to start page",
         #          command=lambda: master.switch_frame(StartPage)).pack()
 
-class PageTwo(tkinter.Frame):
-    def __init__(self, master):
-        tk.Frame.__init__(self, master)
-        tk.Frame.configure(self,bg='red')
-        tk.Label(self, text="Page two", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
-        tk.Button(self, text="Go back to start page",
-                  command=lambda: master.switch_frame(StartPage)).pack()
+class SamePage(tkinter.Frame):
+    def __init__(window, master):
+
+        def test():
+            while True:
+                print('실행중')
+                time.sleep(1)
+
+        tkinter.Frame.__init__(window, master)
+        ttk.Label(window, text = " ").grid(row = 0, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 1, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = "07:00에").grid(row = 2, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 3, column = 0, padx = 10, pady = 10)
+        ttk.Button(window, text= "중지", command =lambda: master.switch_frame(StartPage)).grid(row = 4, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 0, column = 1, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 1, column = 1, padx = 10, pady = 10)
+        ttk.Label(window, text = "실행 됩니다").grid(row = 2, column = 1, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 3, column = 1, padx = 10, pady = 10)
+        ttk.Button(window, text= "종료", command = window.quit).grid(row = 4, column = 1, padx = 10, pady = 10)
+        
+        test()
+        #test()
+        #tk.Frame.__init__(self, master)
+        #tk.Frame.configure(self,bg='red')
+        #tk.Label(self, text="Page two", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
+        #tk.Button(self, text="Go back to start page",
+        #          command=lambda: master.switch_frame(StartPage)).pack()
 
 if __name__ == "__main__":
     app = SampleApp()
