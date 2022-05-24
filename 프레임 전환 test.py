@@ -1,5 +1,6 @@
 import csv, time
 import tkinter
+from datetime import datetime
 from tkinter import ttk
     
 class SampleApp(tkinter.Tk):
@@ -81,25 +82,39 @@ class DifferentPage(tkinter.Frame):
 
 class SamePage(tkinter.Frame):
     def __init__(window, master):
-
-        def test():
-            while True:
-                print('실행중')
-                time.sleep(1)
-
         tkinter.Frame.__init__(window, master)
+        # Define a function to print something inside infinite loop
+        condition=True
+        def infinite_loop():
+            if condition:
+                print(datetime.now())
+                window.after(86399000, infinite_loop)
+
+        # Call the infinite_loop() again after 1 sec win.after(1000, infinite_loop)
+
+        def start():
+            global condition
+            condition=True
+            infinite_loop()
+
+        def stop():
+            global condition
+            condition=False
+            master.switch_frame(StartPage)
+
+        start()
+        
         ttk.Label(window, text = " ").grid(row = 0, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 1, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = "07:00에").grid(row = 2, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 0, padx = 10, pady = 10)
-        ttk.Button(window, text= "중지", command =lambda: master.switch_frame(StartPage)).grid(row = 4, column = 0, padx = 10, pady = 10)
+        ttk.Button(window, text= "중지", command = stop).grid(row = 4, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 0, column = 1, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 1, column = 1, padx = 10, pady = 10)
         ttk.Label(window, text = "실행 됩니다").grid(row = 2, column = 1, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 1, padx = 10, pady = 10)
         ttk.Button(window, text= "종료", command = window.quit).grid(row = 4, column = 1, padx = 10, pady = 10)
         
-        test()
         #test()
         #tk.Frame.__init__(self, master)
         #tk.Frame.configure(self,bg='red')

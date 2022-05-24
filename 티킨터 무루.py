@@ -15,7 +15,7 @@ button.pack(side = TOP, pady = 5)
  
 def a():
     print('Running...')
-    root.after(1000, a)
+    root.after(10000, a)
 # Calculating starting time
 start = time()
  
