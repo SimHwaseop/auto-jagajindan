@@ -30,6 +30,7 @@ class StartPage(tkinter.Frame):
         start_time, user_name, user_birthday ,user_password = tkinter.StringVar(),tkinter.StringVar(), tkinter.StringVar(), tkinter.StringVar()
         start_time.set(csv_info[0]),user_name.set(csv_info[1]), user_birthday.set(csv_info[2]), user_password.set(csv_info[3])
 
+
         def data_check():
             if '['+start_time.get()[1:-2]+']' == str(csv_info[0]) and '['+user_name.get()[1:-2]+']' == str(csv_info[1]) and '['+user_birthday.get()[1:-2]+']' == str(csv_info[2]) and '['+user_password.get()[1:-2]+']' == str(csv_info[3]):
                 master.switch_frame(SamePage)
