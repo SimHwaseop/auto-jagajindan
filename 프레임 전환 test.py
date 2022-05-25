@@ -26,19 +26,16 @@ class StartPage(tkinter.Frame):
         csv_info=[]
         for value_csv2 in value_csv1 :
             csv_info.append(value_csv2)
-
+        
         start_time, user_name, user_birthday ,user_password = tkinter.StringVar(),tkinter.StringVar(), tkinter.StringVar(), tkinter.StringVar()
         start_time.set(csv_info[0]),user_name.set(csv_info[1]), user_birthday.set(csv_info[2]), user_password.set(csv_info[3])
 
         def data_check():
-            if start_time.get() == str(csv_info[0]) and user_name.get() == str(csv_info[1]) and user_birthday.get() == str(csv_info[2]) and user_password.get() == str(csv_info[3]):
+            if '['+start_time.get()[1:-2]+']' == str(csv_info[0]) and '['+user_name.get()[1:-2]+']' == str(csv_info[1]) and '['+user_birthday.get()[1:-2]+']' == str(csv_info[2]) and '['+user_password.get()[1:-2]+']' == str(csv_info[3]):
                 master.switch_frame(SamePage)
-                def test():
-                    while True:
-                        print('실행중')
-                        time.sleep(1)
-                test()
+                
             else:
+                print(start_time.get())
                 master.switch_frame(DifferentPage)
                 
         tkinter.Frame.__init__(window, master)
@@ -52,7 +49,7 @@ class StartPage(tkinter.Frame):
         ttk.Entry(window, textvariable = user_birthday).grid(row = 2, column = 1, padx = 10, pady = 10)
         ttk.Entry(window, textvariable = user_password, show='*').grid(row = 3, column = 1, padx = 10, pady = 10)
         ttk.Button(window, text = "시작", command = data_check).grid(row = 4, column = 1, padx = 10, pady = 10)
-
+        
         #tkinter.Frame.__init__(self, master)
         #tkinter.Label(self, text="Start page", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
         #tkinter.Button(self, text="Go to page one",
@@ -83,12 +80,21 @@ class DifferentPage(tkinter.Frame):
 class SamePage(tkinter.Frame):
     def __init__(window, master):
         tkinter.Frame.__init__(window, master)
+
+        infocsv = open('./info.csv',  encoding="utf-8") #파일이 있는 경로+파일이름.csv
+        value_csv1 = csv.reader(infocsv)
+        csv_info=[]
+        for value_csv2 in value_csv1 :
+            csv_info.append(value_csv2)
+        start_time = csv_info[0]
+        start_time = start_time[2:-2]
+
         # Define a function to print something inside infinite loop
         condition=True
         def infinite_loop():
             if condition:
                 print(datetime.now())
-                window.after(86399000, infinite_loop)
+                window.after(1000, infinite_loop)
 
         # Call the infinite_loop() again after 1 sec win.after(1000, infinite_loop)
 
@@ -106,7 +112,7 @@ class SamePage(tkinter.Frame):
         
         ttk.Label(window, text = " ").grid(row = 0, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 1, column = 0, padx = 10, pady = 10)
-        ttk.Label(window, text = "07:00에").grid(row = 2, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = str(start_time)+'에').grid(row = 2, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 0, padx = 10, pady = 10)
         ttk.Button(window, text= "중지", command = stop).grid(row = 4, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 0, column = 1, padx = 10, pady = 10)
