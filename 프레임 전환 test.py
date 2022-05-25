@@ -1,4 +1,5 @@
 import csv, time
+from encodings import utf_8
 import tkinter
 from datetime import datetime
 from tkinter import ttk
@@ -11,7 +12,7 @@ class SampleApp(tkinter.Tk):
         window.resizable(False,False) #xy좌표변경안됨
         window._frame = None
         window.switch_frame(StartPage)
-
+        
     def switch_frame(window, frame_class):
         new_frame = frame_class(window)
         if window._frame is not None:
@@ -21,12 +22,12 @@ class SampleApp(tkinter.Tk):
 
 class StartPage(tkinter.Frame):
     def __init__(window, master):
-        infocsv = open('./info.csv',  encoding="utf-8") #파일이 있는 경로+파일이름.csv
+        infocsv = open('./info.csv', 'r', encoding="utf-8") #파일이 있는 경로+파일이름.csv
         value_csv1 = csv.reader(infocsv)
         csv_info=[]
         for value_csv2 in value_csv1 :
             csv_info.append(value_csv2)
-        
+
         start_time, user_name, user_birthday ,user_password = tkinter.StringVar(),tkinter.StringVar(), tkinter.StringVar(), tkinter.StringVar()
         start_time.set(csv_info[0]),user_name.set(csv_info[1]), user_birthday.set(csv_info[2]), user_password.set(csv_info[3])
 
@@ -36,8 +37,29 @@ class StartPage(tkinter.Frame):
                 master.switch_frame(SamePage)
                 
             else:
-                print(start_time.get())
-                master.switch_frame(DifferentPage)
+                csv_save=[str(start_time.get()),str(user_name.get()),str(user_birthday.get()),str(user_password.get())]
+                with open("info.csv", 'w', newline='',encoding = "utf-8") as f:
+                    f.write(str(start_time.get()[2:-3]))
+                    f.close
+                with open("info.csv", 'a', newline='',encoding = "utf-8") as f:
+                    f.write('\n'+str(user_name.get()[2:-3]))
+                    f.close
+                with open("info.csv", 'a', newline='',encoding = "utf-8") as f:
+                    f.write('\n'+str(user_birthday.get()[2:-3]))
+                    f.close
+                with open("info.csv", 'a', newline='',encoding = "utf-8") as f:
+                    f.write('\n'+str(user_password.get()[2:-3]))
+                    f.close
+
+                #f = open('info.csv', 'w', newline='', encoding="utf-8")
+                #f.write(str(start_time.get()[2:-3])+'\n')
+                #f.write(str(user_name.get()[2:-3])+'\n')
+                #f.write(str(user_birthday.get()[2:-3])+'\n')
+                #f.write(str(user_password.get()[2:-3]))
+                #f.close
+                time.sleep(10)
+                master.switch_frame(SamePage)
+                #master.switch_frame(DifferentPage)
                 
         tkinter.Frame.__init__(window, master)
         ttk.Label(window, text = "실행 시간" ).grid(row = 0, column = 0, padx = 10, pady = 10)
@@ -87,8 +109,7 @@ class SamePage(tkinter.Frame):
         csv_info=[]
         for value_csv2 in value_csv1 :
             csv_info.append(value_csv2)
-        start_time = csv_info[0]
-        start_time = start_time[2:-2]
+        start_time =  str(csv_info[0])[2:-2]
 
         # Define a function to print something inside infinite loop
         condition=True
@@ -108,7 +129,6 @@ class SamePage(tkinter.Frame):
             global condition
             condition=False
             master.switch_frame(StartPage)
-
 
         start()
         
