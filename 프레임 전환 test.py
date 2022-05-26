@@ -42,7 +42,7 @@ class StartPage(tkinter.Frame):
                     f.write(str(start_time.get()[2:-3]))
                     f.close
                 with open("info.csv", 'a', newline='',encoding = "utf-8") as f:
-                    f.write('\n'+str(user_name.get()[2:-3]))
+                    f.write('\n'+str(user_name.get()))
                     f.close
                 with open("info.csv", 'a', newline='',encoding = "utf-8") as f:
                     f.write('\n'+str(user_birthday.get()[2:-3]))
