@@ -1,7 +1,10 @@
+from re import T
 import requests, csv, time, tkinter
 from urllib import parse
 from datetime import datetime
+# html을 불러오는 라이브러리
 from bs4 import BeautifulSoup
+# 브라우저 자동화 라이브러리
 from selenium import webdriver
 from encodings import utf_8
 from datetime import datetime
