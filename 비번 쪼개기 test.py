@@ -10,7 +10,7 @@ for value_csv2 in value_csv1 :
 #csvpassword = csv_info[2]
 
 a=str(csv_info[2])
-
+print(a)
 print(a[2:3])
 print(a[3:4])
 print(a[4:5])

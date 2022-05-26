@@ -120,8 +120,8 @@ def userpassword(up1,up2,up3,up4):
     
 #pa = input('비번 입력:')
 
-for i in range(2):
-    
+for i in range(1):
+    print(datetime.now())
     #while True:
     #    if str(time.strftime('%H:%M', time.localtime(time.time()))) == '07:02':
     #        break
@@ -182,7 +182,7 @@ for i in range(2):
         #여기는 체크하지 않음
         time.sleep(1)
 
-        #userpassword('0','0','0','0')
+        userpassword('1','2','3','4')
 
         #비밀번호 확인
         driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
@@ -208,7 +208,7 @@ for i in range(2):
         driver.find_element_by_xpath('//*[@id="survey_q3a1"]').click()
 
         #제출
-        driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
+        #driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
 
         #끝남
         #시간하고 요일 만 만들면 됨
@@ -218,5 +218,5 @@ for i in range(2):
 
         #브라우저 종료
         driver.quit()
-        
-        time.sleep(86370) #23시간29분30초 정지
+        print(datetime.now())
+        #time.sleep(86370) #23시간29분30초 정지
