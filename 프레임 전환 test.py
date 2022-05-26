@@ -37,19 +37,35 @@ class StartPage(tkinter.Frame):
                 master.switch_frame(SamePage)
                 
             else:
-                csv_save=[str(start_time.get()),str(user_name.get()),str(user_birthday.get()),str(user_password.get())]
-                with open("info.csv", 'w', newline='',encoding = "utf-8") as f:
-                    f.write(str(start_time.get()[2:-3]))
-                    f.close
+                #csv_save=[str(start_time.get()),str(user_name.get()),str(user_birthday.get()),str(user_password.get())]
+                with open("info.csv", 'w') as f:
+                    if str(start_time.get()).startswith('('):
+                        f.write(str(start_time.get()[2:-3]))
+                        f.close
+                    else:
+                        f.write(str(start_time.get()))
+                        f.close
                 with open("info.csv", 'a', newline='',encoding = "utf-8") as f:
-                    f.write('\n'+str(user_name.get()))
-                    f.close
-                with open("info.csv", 'a', newline='',encoding = "utf-8") as f:
-                    f.write('\n'+str(user_birthday.get()[2:-3]))
-                    f.close
-                with open("info.csv", 'a', newline='',encoding = "utf-8") as f:
-                    f.write('\n'+str(user_password.get()[2:-3]))
-                    f.close
+                    if str(user_name.get()).startswith('('):
+                        f.write('\n'+str(user_name.get()[2:-3]))
+                        f.close
+                    else:
+                        f.write('\n'+str(user_name.get()))
+                        f.close
+                with open("info.csv", 'a') as f:
+                    if str(user_birthday.get()).startswith('('):
+                        f.write('\n'+str(user_birthday.get()[2:-3]))
+                        f.close
+                    else:
+                        f.write('\n'+str(user_birthday.get()))
+                        f.close
+                with open("info.csv", 'a') as f:
+                    if str(user_password.get()).startswith('('):
+                        f.write('\n'+str(user_password.get()[2:-3]))
+                        f.close
+                    else:
+                        f.write('\n'+str(user_password.get()))
+                        f.close
 
                 #f = open('info.csv', 'w', newline='', encoding="utf-8")
                 #f.write(str(start_time.get()[2:-3])+'\n')
@@ -57,7 +73,7 @@ class StartPage(tkinter.Frame):
                 #f.write(str(user_birthday.get()[2:-3])+'\n')
                 #f.write(str(user_password.get()[2:-3]))
                 #f.close
-                time.sleep(10)
+                time.sleep(1)
                 master.switch_frame(SamePage)
                 #master.switch_frame(DifferentPage)
                 
@@ -116,7 +132,7 @@ class SamePage(tkinter.Frame):
         def infinite_loop():
             if condition:
                 print(datetime.now())
-                window.after(1000, infinite_loop)
+                window.after(10000, infinite_loop)
 
         # Call the infinite_loop() again after 1 sec win.after(1000, infinite_loop)
 
