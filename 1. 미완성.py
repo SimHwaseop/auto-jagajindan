@@ -197,6 +197,7 @@ class SamePage(tkinter.Frame):
                 #options = webdriver.ChromeOptions()
                 #options.add_experimental_option("excludeSwitches", ["enable-logging"])
                 #driver = webdriver.Chrome('auto-jagajindan\chromedriver.exe',options=options)
+                #if int(time.strftime('%H', time.localtime(time.time()))) >= 
                 driver = webdriver.Chrome('chromedriver.exe')
                 url = 'https://hcs.eduro.go.kr/#/loginHome'
                 driver.get(url)
@@ -251,7 +252,7 @@ class SamePage(tkinter.Frame):
                 driver.find_element_by_xpath('//*[@id="survey_q3a1"]').click()
                 #제출
                 #driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
-                time.sleep(100)
+                #time.sleep(100)
                 #브라우저 종료
                 driver.quit()
 
@@ -269,25 +270,29 @@ class SamePage(tkinter.Frame):
         condition = True
         def infinite_loop():
             if condition:
-                if True:
+                jagajindan_start = 0
+                if int(time.strftime('%H', time.localtime(time.time()))) == int(start_time[:-3]) and int(time.strftime('%M', time.localtime(time.time()))) == int(start_time[3:]) :
                     jagajindan()
                     print(datetime.now())
-                    window.after(86386000, infinite_loop)
-
+                    jagajindan_start = 1  
+                #print(int(time.strftime('%H', time.localtime(time.time()))),int(start_time[:-3]),int(time.strftime('%M', time.localtime(time.time()))), int(start_time[3:]))
+                if jagajindan_start == 0:
+                    print('1초')
+                    window.after(1000, infinite_loop)
+                if jagajindan_start == 1:
+                    #jagajindan_start = 0
+                    print('86380초')
+                    window.after(86380000, infinite_loop) 
         # Call the infinite_loop() again after 1 sec win.after(1000, infinite_loop)
-
         def start():
             global condition
             condition=True
             infinite_loop()
-
         def stop():
             global condition
             condition=False
             master.switch_frame(StartPage)
-
         start()
-        
         ttk.Label(window, text = " ").grid(row = 0, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 1, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = str(start_time)+'에').grid(row = 2, column = 0, padx = 10, pady = 10)
@@ -298,7 +303,6 @@ class SamePage(tkinter.Frame):
         ttk.Label(window, text = "실행 됩니다").grid(row = 2, column = 1, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 1, padx = 10, pady = 10)
         ttk.Button(window, text= "종료", command = window.quit).grid(row = 4, column = 1, padx = 10, pady = 10)
-        
         #test()
         #tk.Frame.__init__(self, master)
         #tk.Frame.configure(self,bg='red')
