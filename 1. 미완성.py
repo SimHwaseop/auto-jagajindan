@@ -201,6 +201,7 @@ class SamePage(tkinter.Frame):
                 driver = webdriver.Chrome('chromedriver.exe')
                 url = 'https://hcs.eduro.go.kr/#/loginHome'
                 driver.get(url)
+                time.sleep(2)
                 #자가진단 참여하기
                 driver.find_element_by_xpath('//*[@id="btnConfirm2"]').click()
                 #학교 검색
@@ -237,7 +238,7 @@ class SamePage(tkinter.Frame):
                 #비밀번호 확인
                 driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
                 #오류로 인한 일시정지
-                time.sleep(2)
+                time.sleep(3)
                 #계정 선택 (미참여 인거)
                 driver.find_element_by_xpath('//*[@id="container"]/div/section[2]/div[2]/ul/li/a[1]').click()
                 #문제생김 일시정지
@@ -251,8 +252,9 @@ class SamePage(tkinter.Frame):
                 # 3. 본인 또는 동거인 PCR검사결과 기다리고 있니요? 아니요
                 driver.find_element_by_xpath('//*[@id="survey_q3a1"]').click()
                 #제출
-                #driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
-                #time.sleep(100)
+                driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
+                
+                time.sleep(2)
                 #브라우저 종료
                 driver.quit()
 
