@@ -6,7 +6,6 @@ from selenium import webdriver
 from encodings import utf_8
 from datetime import datetime
 from tkinter import ttk
-    
 class SampleApp(tkinter.Tk):
     def __init__(window):
         tkinter.Tk.__init__(window)
@@ -15,14 +14,12 @@ class SampleApp(tkinter.Tk):
         window.resizable(False,False) #xy좌표변경안됨
         window._frame = None
         window.switch_frame(StartPage)
-        
     def switch_frame(window, frame_class):
         new_frame = frame_class(window)
         if window._frame is not None:
             window._frame.destroy()
         window._frame = new_frame
         window._frame.pack()
-
 class StartPage(tkinter.Frame):
     def __init__(window, master):
         infocsv = open('./info.csv', 'r', encoding="utf-8") #파일이 있는 경로+파일이름.csv
@@ -30,15 +27,11 @@ class StartPage(tkinter.Frame):
         csv_info=[]
         for value_csv2 in value_csv1 :
             csv_info.append(value_csv2)
-
         start_time, user_name, user_birthday ,user_password = tkinter.StringVar(),tkinter.StringVar(), tkinter.StringVar(), tkinter.StringVar()
         start_time.set(csv_info[0]),user_name.set(csv_info[1]), user_birthday.set(csv_info[2]), user_password.set(csv_info[3])
-
-
         def data_check():
             if '['+start_time.get()[1:-2]+']' == str(csv_info[0]) and '['+user_name.get()[1:-2]+']' == str(csv_info[1]) and '['+user_birthday.get()[1:-2]+']' == str(csv_info[2]) and '['+user_password.get()[1:-2]+']' == str(csv_info[3]):
                 master.switch_frame(SamePage)
-                
             else:
                 #csv_save=[str(start_time.get()),str(user_name.get()),str(user_birthday.get()),str(user_password.get())]
                 with open("info.csv", 'w') as f:
@@ -69,36 +62,19 @@ class StartPage(tkinter.Frame):
                     else:
                         f.write('\n'+str(user_password.get()))
                         f.close
-
-                #f = open('info.csv', 'w', newline='', encoding="utf-8")
-                #f.write(str(start_time.get()[2:-3])+'\n')
-                #f.write(str(user_name.get()[2:-3])+'\n')
-                #f.write(str(user_birthday.get()[2:-3])+'\n')
-                #f.write(str(user_password.get()[2:-3]))
-                #f.close
                 time.sleep(1)
                 master.switch_frame(SamePage)
                 #master.switch_frame(DifferentPage)
-                
         tkinter.Frame.__init__(window, master)
         ttk.Label(window, text = "실행 시간" ).grid(row = 0, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = "이름" ).grid(row = 1, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = "생년월일").grid(row = 2, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = "비밀번호").grid(row = 3, column = 0, padx = 10, pady = 10)
-        #ttk.Button(window, text="one",command=lambda: master.switch_frame(PageOne)).grid(row = 4, column = 0, padx = 10, pady = 10)
         ttk.Entry(window, textvariable = start_time).grid(row = 0, column = 1, padx = 10, pady = 10)
         ttk.Entry(window, textvariable = user_name).grid(row = 1, column = 1, padx = 10, pady = 10)
         ttk.Entry(window, textvariable = user_birthday).grid(row = 2, column = 1, padx = 10, pady = 10)
         ttk.Entry(window, textvariable = user_password, show='*').grid(row = 3, column = 1, padx = 10, pady = 10)
         ttk.Button(window, text = "시작", command = data_check).grid(row = 4, column = 1, padx = 10, pady = 10)
-        
-        #tkinter.Frame.__init__(self, master)
-        #tkinter.Label(self, text="Start page", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
-        #tkinter.Button(self, text="Go to page one",
-        #          command=lambda: master.switch_frame(PageOne)).pack()
-        #tkinter.Button(self, text="Go to page two",
-        #          command=lambda: master.switch_frame(PageTwo)).pack()
-
 class DifferentPage(tkinter.Frame):
     def __init__(window, master):
         tkinter.Frame.__init__(window, master)
@@ -112,24 +88,15 @@ class DifferentPage(tkinter.Frame):
         ttk.Label(window, text = " ").grid(row = 2, column = 1, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 1, padx = 10, pady = 10)
         ttk.Button(window, text= "저장&실행", command=lambda: master.switch_frame(SamePage)).grid(row = 4, column = 1, padx = 10, pady = 10)
-        
-        #tkinter.Frame.__init__(self, master)
-        #tkinter.Frame.configure(self,bg='blue')
-        #tkinter.Label(self, text="Page one", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
-        #tkinter.Button(self, text="Go back to start page",
-        #          command=lambda: master.switch_frame(StartPage)).pack()
-
 class SamePage(tkinter.Frame):
     def __init__(window, master):
         tkinter.Frame.__init__(window, master)
-
         def jagajindan():
             #휴일 정보 불러오는 거
             def dayoff():
                 if int(datetime.today().strftime('%w')) == 0 or int(datetime.today().strftime('%w')) == 6:
+                    print('휴일')
                     return True
-                #elif int(datetime.today().strftime('%w')) == 6:
-                #    return True
                 else:
                     url = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"
                     api_key_utf8 = "ZwivLrudvl%2FhrxYMBlaZ6xvtJedAxNHKtdER0N6vGRidDZEeM4yup%2BqB2VH9S9%2BcAhUdBSxqULAmTX7ZvvLuoA%3D%3D"
@@ -148,9 +115,10 @@ class SamePage(tkinter.Frame):
                         item_list.append(item.find("locdate").get_text())
                     for item in item_list:
                         if int(item) == int(datetime.today().strftime("%Y%m%d")):
+                            print('휴일')
                             return True
                 return False
-            def userpassword():#(up1,up2,up3,up4):
+            def userpassword():
                 p1 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[4]/a')
                 p2 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[1]')
                 p3 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[2]')
@@ -186,19 +154,12 @@ class SamePage(tkinter.Frame):
                 Choosepassword(int(user_password[1:2]))
                 Choosepassword(int(user_password[2:3]))
                 Choosepassword(int(user_password[3:4]))
-                #Choosepassword(int(up1))
-                #Choosepassword(int(up2))
-                #Choosepassword(int(up3))
-                #Choosepassword(int(up4))
-                #while True:
-                #    if str(time.strftime('%H:%M', time.localtime(time.time()))) == '07:02':
-                #        break
-            if dayoff() == False: #True:
-                #options = webdriver.ChromeOptions()
-                #options.add_experimental_option("excludeSwitches", ["enable-logging"])
-                #driver = webdriver.Chrome('auto-jagajindan\chromedriver.exe',options=options)
-                #if int(time.strftime('%H', time.localtime(time.time()))) >= 
-                driver = webdriver.Chrome('chromedriver.exe')
+            if dayoff() == False:
+                webdriver_options = webdriver.ChromeOptions()
+                webdriver_options.add_argument('headless')
+                webdriver_options.add_argument('windows-size=1920x1080')
+                webdriver_options.add_argument('disable-gpu')
+                driver = webdriver.Chrome( 'chromedriver.exe', options =  webdriver_options )
                 url = 'https://hcs.eduro.go.kr/#/loginHome'
                 driver.get(url)
                 time.sleep(2)
@@ -253,11 +214,9 @@ class SamePage(tkinter.Frame):
                 driver.find_element_by_xpath('//*[@id="survey_q3a1"]').click()
                 #제출
                 driver.find_element_by_xpath('//*[@id="btnConfirm"]').click()
-                
                 time.sleep(2)
                 #브라우저 종료
                 driver.quit()
-
         infocsv = open('./info.csv',  encoding="utf-8") #파일이 있는 경로+파일이름.csv
         value_csv1 = csv.reader(infocsv)
         csv_info=[]
@@ -279,10 +238,9 @@ class SamePage(tkinter.Frame):
                     jagajindan_start = 1  
                 #print(int(time.strftime('%H', time.localtime(time.time()))),int(start_time[:-3]),int(time.strftime('%M', time.localtime(time.time()))), int(start_time[3:]))
                 if jagajindan_start == 0:
-                    print('1초')
-                    window.after(1000, infinite_loop)
+                    print('60초')
+                    window.after(60000, infinite_loop)
                 if jagajindan_start == 1:
-                    #jagajindan_start = 0
                     print('86380초')
                     window.after(86380000, infinite_loop) 
         # Call the infinite_loop() again after 1 sec win.after(1000, infinite_loop)
@@ -305,13 +263,7 @@ class SamePage(tkinter.Frame):
         ttk.Label(window, text = "실행 됩니다").grid(row = 2, column = 1, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 1, padx = 10, pady = 10)
         ttk.Button(window, text= "종료", command = window.quit).grid(row = 4, column = 1, padx = 10, pady = 10)
-        #test()
-        #tk.Frame.__init__(self, master)
-        #tk.Frame.configure(self,bg='red')
-        #tk.Label(self, text="Page two", font=('Helvetica', 18, "bold")).pack(side="top", fill="x", pady=5)
-        #tk.Button(self, text="Go back to start page",
-        #          command=lambda: master.switch_frame(StartPage)).pack()
-
+        
 if __name__ == "__main__":
     app = SampleApp()
     app.mainloop()
