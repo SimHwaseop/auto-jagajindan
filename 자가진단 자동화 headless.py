@@ -10,16 +10,9 @@ def dayoff():
     #elif int(datetime.today().strftime('%w')) == 6:
     #    return True
     else:
-        url = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"
-        api_key_utf8 = "ZwivLrudvl%2FhrxYMBlaZ6xvtJedAxNHKtdER0N6vGRidDZEeM4yup%2BqB2VH9S9%2BcAhUdBSxqULAmTX7ZvvLuoA%3D%3D"
-        api_key_decode = parse.unquote(api_key_utf8)
-        params = {
-            "ServiceKey": api_key_decode,
-            "solYear": datetime.today().year,
-            "numOfRows": 100,
-            "solMonth": datetime.today().strftime('%m')
-        }
-        response = requests.get(url, params=params)
+        url = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?ServiceKey=ZwivLrudvl%2FhrxYMBlaZ6xvtJedAxNHKtdER0N6vGRidDZEeM4yup%2BqB2VH9S9%2BcAhUdBSxqULAmTX7ZvvLuoA%3D%3D"+"&solYear="+str(datetime.today().year)+"&solMonth="+str(datetime.today().strftime('%m'))
+        print(url)
+        response = requests.get(url)
         xml = BeautifulSoup(response.text, "lxml")
         items = xml.find('items')
         item_list = []
@@ -70,12 +63,12 @@ def userpassword(up1,up2,up3,up4):
     Choosepassword(int(up4))
 #pa = input('비번 입력:')
 while True:
-    print(datetime.now())
-    while True:
-        if str(time.strftime('%H:%M', time.localtime(time.time()))) == '22:20':
-            print('tlrksehla')
-            break
-        time.sleep(1)
+    #print(datetime.now())
+    #while True:
+    #    if str(time.strftime('%H:%M', time.localtime(time.time()))) == '06:41':
+    #        print('tlrksehla')
+    #        break
+    #    time.sleep(1)
     if dayoff() == False: #True:
         #options = webdriver.ChromeOptions()
         #options.add_experimental_option("excludeSwitches", ["enable-logging"])

@@ -98,16 +98,8 @@ class SamePage(tkinter.Frame):
                     print('휴일')
                     return True
                 else:
-                    url = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"
-                    api_key_utf8 = "ZwivLrudvl%2FhrxYMBlaZ6xvtJedAxNHKtdER0N6vGRidDZEeM4yup%2BqB2VH9S9%2BcAhUdBSxqULAmTX7ZvvLuoA%3D%3D"
-                    api_key_decode = parse.unquote(api_key_utf8)
-                    params = {
-                        "ServiceKey": api_key_decode,
-                        "solYear": datetime.today().year,
-                        "numOfRows": 100,
-                        "solMonth": datetime.today().strftime('%m')
-                    }
-                    response = requests.get(url, params=params)
+                    url = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?ServiceKey=ZwivLrudvl%2FhrxYMBlaZ6xvtJedAxNHKtdER0N6vGRidDZEeM4yup%2BqB2VH9S9%2BcAhUdBSxqULAmTX7ZvvLuoA%3D%3D"+"&solYear="+str(datetime.today().year)+"&solMonth="+str(datetime.today().strftime('%m'))
+                    response = requests.get(url)
                     xml = BeautifulSoup(response.text, "lxml")
                     items = xml.find('items')
                     item_list = []
