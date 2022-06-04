@@ -69,7 +69,7 @@ while True:
     #        print('tlrksehla')
     #        break
     #    time.sleep(1)
-    if dayoff() == False: #True:
+    if dayoff() == False : #True
         #options = webdriver.ChromeOptions()
         #options.add_experimental_option("excludeSwitches", ["enable-logging"])
         #driver = webdriver.Chrome('auto-jagajindan\chromedriver.exe',options=options)
