@@ -4,11 +4,12 @@
 이름|심화섭|
 생년월일|000000 (주민등록번호 앞자리)|
 비밀번호|0000|
-
+   
+   
 ## Selenium을 활용한 자가진단 자동화 프로그램 개발 보고서
 #### 배경
 교육부에서 시행한 '건강상태자가진단'은 시행할 때부터 학생들의 의문, 그러니까 사용시에 일어나는 효과가미미하거나 없다는 의문이 제기 되었고, 또 다른 문제인 반에서 '건강상태자가진단'을 하지 않을 시에 휴대전화를 압수하는 규칙이 생겨난 뒤로 이 프로그램을 만들어야겠다는 확신이 어들 만들게됨 .
-
+      
 #### 개발과정
 유튜브에서 크롤링 관련 영상들의 보다가 Selenium을 알게 되었고 이 것으로 만들게됨 개발환경은 Visual Studio Code를 이용했으며, Python언어를 사용하여 개발함.
 처음 Selenium을 활용하여 개발을 할때에 Xpath를 사용하여 호출하는 방식으로 사용하였고, 그 중 첫 번째 오류로
@@ -19,7 +20,7 @@ no such element: Unable to locate element:
 ```py
 time.sleep(1)
 ```
-
+  
 2번쨰로 보안 키패드 문제를 해결하기 위해서는 처음으로는 비밀번호 숫자 엘리멘트들의 위치 12개(빈것2개와 0~9)를 일단 찾아 저장하고, 그 다음으로는 어떠한 태그의 어떠한 속성을 가진 것의 속성 변수를 불러오기 위하여 BeautifulSoup를 사용했다.
 ```py
 soup = BeautifulSoup(driver.page_source, 'html.parser')
@@ -32,11 +33,11 @@ l=[]
 ```
 위의 코드방식으로 soup라는 변수 안에 a태그안에 aria-label이라는 속성이 있는 i번쨰 값을 불러와 l이라는 리스트 변수에 저장하는 방식으로 비밀번호 키패드의 위치를 크롤링함. (aria-label속성은 보통 보여지는 값을 속성으로 해놓은 것이라고 함.)
 이후 숫자를 비교해 맞는 위치의 엘리멘트를 클릭하도록 구현함.  
-
+  
 이 후 휴일은 자가진단이 자동으로 되지 않아야 하기 떄문에 공공 데이터 포털의 ‘한국 천문연구원_특일 정보’ 라는 오픈 api를 이용하여 대한민국을 공휴일 ex)지방선거일, 현충일 등의 평일의 공휴일을 불러와 그날에는 실행되지 않도록 하였다.  
-
+  
 이 프로그램을 사용자가 사용하기 위해서는 파이썬 형태의 파일이 아닌 사용자가 사용하기 편하도록 하는 인터페이스가 필요하다고 생각되어 웹서버 형태로 인터넷 창으로 관리를 할지와 그냥 프로그램 창으로 하는 형태 2가지로 고민과 검색으로 찾아보다가 웹 형식은 아직 배우지 못해서 구현이 어렵다고 판단하여 그냥 프로그램 형식으로 만드는 결론을 내였다. 일반적인 프로그램 gui창을 구현하기 위해서는 파이썬의 'Tkinter'라는 모듈을 사용하였다.  
-
+  
 Tkinter 는 아래와 같이  
 ```py
 window=tkinter.Tk()
@@ -54,10 +55,90 @@ window.resizable(False,False) #xy좌표변경안됨
 window = tkinter.Tk()
 ```
 위 코드의 예제를 보고서  '굳이 변수안에 tkinter.Tk()를 넣어야 할까?‘ 라는 생각을 한뒤에 변수를 만들지 않고서 그냥 tkinter.Tk()로 선언 하고서 프로그램을 실행하였더니 한 형태(Label, Button 등) 들이 각각 독립된 형태로 실행되는 아주 재밌는 오류가 생기는 것을 확인하게 됨.  
-
+  
 tkinter를 이용하여 gui를 만들 때 ttk와 tk가 있다. ttk 확장모듈은 tk의 그래픽의 각진 형태에서 더 보기 좋은 형태로 변화 시켜준다는 특징이 있다.
 그래서 ttk를 이용하여 gui를 구현 했다.  
 ```py
-tk.Label(window, text = " " ).grid(row = 0, column = 0, padx = 10, pady = 10)
+ttk.Label(window, text = " " ).grid(row = 0, column = 0, padx = 10, pady = 10)
 ```
 위의 코드에서처럼 그리드의 row는 열의 위치를 나타내고, column은 해의 위치를 나타내며 pady,padx는 픽셀 값이다. 이외에도 columnspan은 행을 합치는 속성이다. ex) columnspan = 2 는 옆에 있는 행 1개와 합친다는 뜻이다.  
+  
+그 다음으로 가장 중요한 오류로는 tkinter에서는 반복문(for, while) 이 실행되면 프레임 전환이 되지 않으며, gui창이 조작 할 수 없는 상태로 반복문이 계속 실행되고 있어 프로그램을 종료해야 꺼지기 때문이다. 이 문제를 해결하기 위해서 구글링을 하였고 예시코드를 찾았다.(아래 코드)
+```py
+# Import the required library
+from tkinter import *
+
+# Create an instance of tkinter frame
+win=Tk()
+
+# Set the size of the Tkinter window
+win.geometry("700x350")
+
+# Define a function to print something inside infinite loop
+condition=True
+def infinite_loop():
+   if condition:
+      Label(win, text="Infinite Loop!", font="Arial, 25").pack()
+
+   # Call the infinite_loop() again after 1 sec win.after(1000, infinite_loop)
+
+def start():
+   global condition
+   condition=True
+
+def stop():
+   global condition
+   condition=False
+
+# Create a button to start the infinite loop
+start = Button(win, text= "Start the Loop", font="Arial, 12", command=start).pack()
+stop = Button(win, text="Stop the Loop", font="Arial, 12", command=stop).pack()
+
+# Call the infinite_loop function after 1 sec.
+win.after(1000, infinite_loop)
+
+win.mainloop()
+```
+위의 예제를 찾았는데 위의 코드는 버튼을 눌러도 반응이 없었기 떄문에 문제가 있다고 판단후 다른 예제를 찾기 위해 구글링을 하였지만, 다른 예제를 찾지는 못하였고 이예제를 보고 있으니 밑의 코드인
+```py
+win.after(1000, infinite_loop)
+```
+위의 코드를 위치를 바꾸는 방식으로 아래와 같이 코드를 변경하였더니
+```py
+# Import the required library
+from tkinter import *
+
+# Create an instance of tkinter frame
+win=Tk()
+
+# Set the size of the Tkinter window
+win.geometry("700x350")
+
+# Define a function to print something inside infinite loop
+condition=True
+def infinite_loop():
+   if condition:
+      Label(win, text="Infinite Loop!", font="Arial, 25").pack()
+      win.after(1000, infinite_loop)
+
+   # Call the infinite_loop() again after 1 sec win.after(1000, infinite_loop)
+
+def start():
+   global condition
+   condition=True
+   infinite_loop()
+
+def stop():
+   global condition
+   condition=False
+
+# Create a button to start the infinite loop
+start = Button(win, text= "Start the Loop", font="Arial, 12", command=start).pack()
+stop = Button(win, text="Stop the Loop", font="Arial, 12", command=stop).pack()
+
+# Call the infinite_loop function after 1 sec.
+
+
+win.mainloop()
+```
+정상적으로 무한루프 프로그램이 되었기 떄문에 위의 코드를 참고하여 무한 루프를 구현 하였다.
