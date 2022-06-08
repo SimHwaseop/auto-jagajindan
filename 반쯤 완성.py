@@ -116,9 +116,20 @@ class SamePage(tkinter.Frame):
                     print('휴일')
                     return True
                 else:
-                    url = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo?ServiceKey=ZwivLrudvl%2FhrxYMBlaZ6xvtJedAxNHKtdER0N6vGRidDZEeM4yup%2BqB2VH9S9%2BcAhUdBSxqULAmTX7ZvvLuoA%3D%3D"+"&solYear="+str(datetime.today().year)+"&solMonth="+str(datetime.today().strftime('%m'))
-                    response = requests.get(url)
+                    url = "http://apis.data.go.kr/B090041/openapi/service/SpcdeInfoService/getRestDeInfo"
+                    api_key_utf8 = "ZwivLrudvl%2FhrxYMBlaZ6xvtJedAxNHKtdER0N6vGRidDZEeM4yup%2BqB2VH9S9%2BcAhUdBSxqULAmTX7ZvvLuoA%3D%3D"
+                    api_key_decode = parse.unquote(api_key_utf8)
+                    params = {
+                        "ServiceKey": api_key_decode,
+                        "solYear": datetime.today().year,
+                        "numOfRows": 100,
+                        "solMonth": datetime.today().strftime('%m')
+                    }
+                    response = requests.get(url, params=params)
+                    time.sleep(2)
                     xml = BeautifulSoup(response.text, "lxml")
+                    time.sleep(2)
+                    print(xml)
                     items = xml.find('items')
                     item_list = []
                     for item in items:
@@ -167,7 +178,7 @@ class SamePage(tkinter.Frame):
                 Choosepassword(int(user_password[2:3]))
                 Choosepassword(int(user_password[3:4]))
             
-            if dayoff() == False:
+            if dayoff() == False:#True
                 webdriver_options = webdriver.ChromeOptions()
                 #webdriver_options.add_argument('headless')
                 #webdriver_options.add_argument('windows-size=1920x1080')
@@ -254,9 +265,9 @@ class SamePage(tkinter.Frame):
                     jagajindan_start = 1  
                 #print(int(time.strftime('%H', time.localtime(time.time()))),int(start_time[:-3]),int(time.strftime('%M', time.localtime(time.time()))), int(start_time[3:]))
                 if jagajindan_start == 0:
-                    print('60초')
+                    print('1초')
                     #밑의 코드는 ms 단위로 몇초 뒤에 함수를 시작함
-                    window.after(60000, infinite_loop)
+                    window.after(1000, infinite_loop)
                 if jagajindan_start == 1:
                     print('86380초')
                     window.after(86380000, infinite_loop)
@@ -275,13 +286,13 @@ class SamePage(tkinter.Frame):
         start()
 
         ttk.Label(window, text = " ").grid(row = 0, column = 0, padx = 10, pady = 10)
-        ttk.Label(window, text = " ").grid(row = 1, column = 0, padx = 10, pady = 10)
-        ttk.Label(window, text = str(start_time)+'에').grid(row = 2, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = str(start_time)+' 에 실행됩니다.', font=('Arial', 12, "bold")).grid(row = 1, column = 0, columnspan = 2, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 2, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 0, padx = 10, pady = 10)
         ttk.Button(window, text= "중지", command = stop).grid(row = 4, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 0, column = 1, padx = 10, pady = 10)
-        ttk.Label(window, text = " ").grid(row = 1, column = 1, padx = 10, pady = 10)
-        ttk.Label(window, text = "실행 됩니다").grid(row = 2, column = 1, padx = 10, pady = 10)
+        #ttk.Label(window, text = " ").grid(row = 1, column = 1, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 2, column = 1, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 1, padx = 10, pady = 10)
         ttk.Button(window, text= "종료", command = window.quit).grid(row = 4, column = 1, padx = 10, pady = 10)
         
