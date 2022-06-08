@@ -1,0 +1,5 @@
+sudo apt install python3
+sudo apt install pip3
+pip install bs4
+pip install selenium
+pip install lxml

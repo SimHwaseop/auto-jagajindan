@@ -6,6 +6,7 @@ from selenium import webdriver
 from encodings import utf_8
 from datetime import datetime
 from tkinter import ttk
+
 class SampleApp(tkinter.Tk):
     def __init__(window):
         tkinter.Tk.__init__(window)
@@ -246,13 +247,13 @@ class SamePage(tkinter.Frame):
             master.switch_frame(StartPage)
         start()
         ttk.Label(window, text = " ").grid(row = 0, column = 0, padx = 10, pady = 10)
-        ttk.Label(window, text = str(start_time)+' 에 실행됩니다.',font=('Arial', 12, "bold") ).grid(row = 1, column = 0, columnspan=2, padx = 10, pady = 10)
-        ttk.Label(window, text = " ").grid(row = 2, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 1, column = 0, padx = 10, pady = 10)
+        ttk.Label(window, text = str(start_time)+'에').grid(row = 2, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 0, padx = 10, pady = 10)
         ttk.Button(window, text= "중지", command = stop).grid(row = 4, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 0, column = 1, padx = 10, pady = 10)
-        #ttk.Label(window, text = " ").grid(row = 1, column = 1, padx = 10, pady = 10)
-        #ttk.Label(window, text = "실행 됩니다").grid(row = 2, column = 1, padx = 10, pady = 10)
+        ttk.Label(window, text = " ").grid(row = 1, column = 1, padx = 10, pady = 10)
+        ttk.Label(window, text = "실행 됩니다").grid(row = 2, column = 1, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 1, padx = 10, pady = 10)
         ttk.Button(window, text= "종료", command = window.quit).grid(row = 4, column = 1, padx = 10, pady = 10)
         
