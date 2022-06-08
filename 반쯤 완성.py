@@ -7,6 +7,7 @@ from encodings import utf_8
 from datetime import datetime
 from tkinter import ttk
 
+
 class SampleApp(tkinter.Tk):
     def __init__(window):
         tkinter.Tk.__init__(window)
