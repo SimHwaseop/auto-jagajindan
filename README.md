@@ -142,4 +142,56 @@ stop = Button(win, text="Stop the Loop", font="Arial, 12", command=stop).pack()
 
 win.mainloop()
 ```
-정상적으로 무한루프 프로그램이 되었기 떄문에 위의 코드를 참고하여 무한 루프를 구현 하였다.
+정상적으로 무한루프 프로그램이 되었기 떄문에 위의 코드를 참고하여 무한 루프를 구현 하였다.  
+  
+이것을 만든 뒤에 사용자 정보를 저장하기 위해서는 어떤 방법이 있을지 고민하다가 CSV 파일을 이용하여 사용자 정보를 저장하고 프로그램이 실행될 떄 불러오고 변경되면 저장하는 방식으로 계획하였고 그렇게 구현하였다.  
+
+```py
+#이런 형태인 이유는 오류가 생겼기 때문
+#처음에 csv 파일을 초기화 한 다음 저장 후 추가하는 형태
+with open("info.csv", 'w') as f:
+  if str(start_time.get()).startswith('('):
+     f.write(str(start_time.get()[2:-3]))
+     f.close
+  else:
+     f.write(str(start_time.get()))
+     f.close
+with open("info.csv", 'a', newline='',encoding = "utf-8") as f:
+  if str(user_name.get()).startswith('('):
+     f.write('\n'+str(user_name.get()[2:-3]))
+     f.close
+  else:
+     f.write('\n'+str(user_name.get()))
+     f.close
+with open("info.csv", 'a') as f:
+  if str(user_birthday.get()).startswith('('):
+     f.write('\n'+str(user_birthday.get()[2:-3]))
+     f.close
+  else:
+     f.write('\n'+str(user_birthday.get()))
+     f.close
+with open("info.csv", 'a') as f:
+  if str(user_password.get()).startswith('('):
+     f.write('\n'+str(user_password.get()[2:-3]))
+     f.close
+  else:
+     f.write('\n'+str(user_password.get()))
+     f.close
+
+
+#csv 파일에서 사용자 정보를 불러오기
+infocsv = open('./info.csv',  encoding="utf-8") #파일이 있는 경로+파일이름.csv
+value_csv1 = csv.reader(infocsv)
+csv_info=[]
+for value_csv2 in value_csv1 :
+   csv_info.append(value_csv2)
+start_time =  str(csv_info[0])[2:-2]
+user_name = str(csv_info[1])[2:-2]
+user_birthday = str(csv_info[2])[2:-2]
+user_password = str(csv_info[3])[2:-2]
+```
+위의 코드로 구현한 이유는 짧은 코드로는 문제가 생겨 위 처럼 처음에 새로운 피일로 저장하고 그뒤의 내용을 추가하는 형태로 저장하도록 구현하였고, 그 밑의 코드는 CSV파일의 사용자 정보를 불러오기 위해서 사용한 코드이다.  
+    
+아직 해결하지 못한 문제가 있다. 그것은 정보가 바뀌었다는 것을 알려주는 프레임을 만드는 것인데 다른 프레임의 변수를 가져오는 것을 구글링 하여 모든 예제를 여기에 사용해보았지만 문제는 해결하지 못하였다 오류가 생겼고 이것으로 추축 했을떄 tkinter에 적용하는 코드가 따로 있거나 tkinter에는 적용이 부가는 하다는 것으로 생각 된다.  
+  
+끝.  
