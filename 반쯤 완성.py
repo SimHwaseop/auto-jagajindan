@@ -15,12 +15,15 @@ class SampleApp(tkinter.Tk):
         window.resizable(False,False) #xy좌표변경안됨
         window._frame = None
         window.switch_frame(StartPage)
+
     def switch_frame(window, frame_class):
         new_frame = frame_class(window)
         if window._frame is not None:
             window._frame.destroy()
         window._frame = new_frame
         window._frame.pack()
+
+#처음 프레임 코드
 class StartPage(tkinter.Frame):
     def __init__(window, master):
         infocsv = open('./info.csv', 'r', encoding="utf-8") #파일이 있는 경로+파일이름.csv
@@ -30,11 +33,15 @@ class StartPage(tkinter.Frame):
             csv_info.append(value_csv2)
         start_time, user_name, user_birthday ,user_password = tkinter.StringVar(),tkinter.StringVar(), tkinter.StringVar(), tkinter.StringVar()
         start_time.set(csv_info[0]),user_name.set(csv_info[1]), user_birthday.set(csv_info[2]), user_password.set(csv_info[3])
+        #입력한 데이터와 저장된 데이터를 비교하는 함수 
         def data_check():
             if '['+start_time.get()[1:-2]+']' == str(csv_info[0]) and '['+user_name.get()[1:-2]+']' == str(csv_info[1]) and '['+user_birthday.get()[1:-2]+']' == str(csv_info[2]) and '['+user_password.get()[1:-2]+']' == str(csv_info[3]):
                 master.switch_frame(SamePage)
             else:
                 #csv_save=[str(start_time.get()),str(user_name.get()),str(user_birthday.get()),str(user_password.get())]
+                
+                #이런 형태인 이유는 오류가 생겼기 때문
+                #처음에 csv 파일을 초기화 한 다음 저장 후 추가하는 형태
                 with open("info.csv", 'w') as f:
                     if str(start_time.get()).startswith('('):
                         f.write(str(start_time.get()[2:-3]))
@@ -64,8 +71,11 @@ class StartPage(tkinter.Frame):
                         f.write('\n'+str(user_password.get()))
                         f.close
                 time.sleep(1)
+                
+                #프레임 변경 코드
                 master.switch_frame(SamePage)
                 #master.switch_frame(DifferentPage)
+        
         tkinter.Frame.__init__(window, master)
         ttk.Label(window, text = "실행 시간" ).grid(row = 0, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = "이름" ).grid(row = 1, column = 0, padx = 10, pady = 10)
@@ -76,6 +86,9 @@ class StartPage(tkinter.Frame):
         ttk.Entry(window, textvariable = user_birthday).grid(row = 2, column = 1, padx = 10, pady = 10)
         ttk.Entry(window, textvariable = user_password, show='*').grid(row = 3, column = 1, padx = 10, pady = 10)
         ttk.Button(window, text = "시작", command = data_check).grid(row = 4, column = 1, padx = 10, pady = 10)
+
+#정보가 다를 경우의 프레임
+#하지만 지금은 안됨
 class DifferentPage(tkinter.Frame):
     def __init__(window, master):
         tkinter.Frame.__init__(window, master)
@@ -89,11 +102,15 @@ class DifferentPage(tkinter.Frame):
         ttk.Label(window, text = " ").grid(row = 2, column = 1, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 3, column = 1, padx = 10, pady = 10)
         ttk.Button(window, text= "저장&실행", command=lambda: master.switch_frame(SamePage)).grid(row = 4, column = 1, padx = 10, pady = 10)
+
+#시작된 프레임
 class SamePage(tkinter.Frame):
     def __init__(window, master):
         tkinter.Frame.__init__(window, master)
+        #자가진단 함수
         def jagajindan():
-            #휴일 정보 불러오는 거
+
+            #휴일 정보 api
             def dayoff():
                 if int(datetime.today().strftime('%w')) == 0 or int(datetime.today().strftime('%w')) == 6:
                     print('휴일')
@@ -111,6 +128,8 @@ class SamePage(tkinter.Frame):
                             print('휴일')
                             return True
                 return False
+
+            #비밀번호 해독을 위한 함수
             def userpassword():
                 p1 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[4]/a')
                 p2 = driver.find_element_by_xpath('//*[@id="password_mainDiv"]/div[5]/a[1]')
@@ -133,7 +152,7 @@ class SamePage(tkinter.Frame):
                 for i in range(1+4,12+4+1):
                     l.append(soup.select('a')[i]['aria-label'])
                 # 지정된 번호와 현재 비밀번호 위치를 비교하여
-                # 지정된 숫자가 있는 위치의 순서를 반환하여 그 위치를 클릭 함 
+                # 지정된 숫자가 있는 위치의 순서를 반환하여 그 위치를 클릭 하는 함수
                 def Choosepassword(c):
                     #함수를 쓰기위한 0 ~ 9 까지의 리스트
                     num09=['0','1','2','3','4','5','6','7','8','9']
@@ -147,11 +166,12 @@ class SamePage(tkinter.Frame):
                 Choosepassword(int(user_password[1:2]))
                 Choosepassword(int(user_password[2:3]))
                 Choosepassword(int(user_password[3:4]))
+            
             if dayoff() == False:
                 webdriver_options = webdriver.ChromeOptions()
-                webdriver_options.add_argument('headless')
-                webdriver_options.add_argument('windows-size=1920x1080')
-                webdriver_options.add_argument('disable-gpu')
+                #webdriver_options.add_argument('headless')
+                #webdriver_options.add_argument('windows-size=1920x1080')
+                #webdriver_options.add_argument('disable-gpu')
                 driver = webdriver.Chrome( 'chromedriver.exe', options =  webdriver_options )
                 url = 'https://hcs.eduro.go.kr/#/loginHome'
                 driver.get(url)
@@ -210,6 +230,8 @@ class SamePage(tkinter.Frame):
                 time.sleep(2)
                 #브라우저 종료
                 driver.quit()
+
+        #csv 파일에서 사용자 정보를 불러오기
         infocsv = open('./info.csv',  encoding="utf-8") #파일이 있는 경로+파일이름.csv
         value_csv1 = csv.reader(infocsv)
         csv_info=[]
@@ -220,7 +242,8 @@ class SamePage(tkinter.Frame):
         user_birthday = str(csv_info[2])[2:-2]
         user_password = str(csv_info[3])[2:-2]
         print(start_time, user_name, user_birthday ,user_password)
-        # Define a function to print something inside infinite loop
+
+        # 무한반복을 구현할 지점? 함수? 
         condition = True
         def infinite_loop():
             if condition:
@@ -232,11 +255,13 @@ class SamePage(tkinter.Frame):
                 #print(int(time.strftime('%H', time.localtime(time.time()))),int(start_time[:-3]),int(time.strftime('%M', time.localtime(time.time()))), int(start_time[3:]))
                 if jagajindan_start == 0:
                     print('60초')
+                    #밑의 코드는 ms 단위로 몇초 뒤에 함수를 시작함
                     window.after(60000, infinite_loop)
                 if jagajindan_start == 1:
                     print('86380초')
-                    window.after(86380000, infinite_loop) 
-        # Call the infinite_loop() again after 1 sec win.after(1000, infinite_loop)
+                    window.after(86380000, infinite_loop)
+
+        #무한반복을 시작, 정지할 함수
         def start():
             global condition
             condition=True
@@ -245,7 +270,10 @@ class SamePage(tkinter.Frame):
             global condition
             condition=False
             master.switch_frame(StartPage)
+
+        #함수를 따로 시작 해주어야 함.
         start()
+
         ttk.Label(window, text = " ").grid(row = 0, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = " ").grid(row = 1, column = 0, padx = 10, pady = 10)
         ttk.Label(window, text = str(start_time)+'에').grid(row = 2, column = 0, padx = 10, pady = 10)
