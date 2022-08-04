@@ -1,0 +1,158 @@
+nohup python3 -u ./auto_jagajindan_headless.py &
+ps -ef
+ps -ef | grep python3 -u ./auto_jagajindan_headless.py
+kill (pid)
+
+sudo nano /etc/fstab
+
+#부팅 자동시작 파일
+cd /etc/init.d && sudo nano auto_start.sh
+cd /etc/init.d && auto_start.sh
+
+cd /home/gil000132/문서/vscode/auto-jagajindan/auto-jagajindan_linux64 && nohup python3 -u ./auto_jagajindan_headless.py &
+nohup python3 -u ./home/gil000132/문서/vscode/auto-jagajindan/auto-jagajindan_linux64/auto_jagajindan_headless.py &
+
+lrwxrwxrwx 1 root root 10  6월  4 18:10 01B0-7B2A -> ../../sdb4
+lrwxrwxrwx 1 root root 10  6월  4 18:10 073649b4-b610-4cb9-a104-fae3f643b2cf -> ../../sdb3
+lrwxrwxrwx 1 root root 10  6월  4 18:10 D2F43DBBF43DA321 -> ../../sda1
+lrwxrwxrwx 1 root root 10  6월  4 18:10 D68265FA8265E00B -> ../../sdc1
+lrwxrwxrwx 1 root root 10  6월  4 18:10 D69C1A159C19F0AB -> ../../sdd1
+lrwxrwxrwx 1 root root 10  6월  4 18:10 a16ac6ed-e645-4665-b438-dfcac7be095a -> ../../sdb1
+lrwxrwxrwx 1 root root 10  6월  4 18:10 b28a0a9d-879e-4a97-b44a-f193a0f474f7 -> ../../sdb2
+
+
+Disk /dev/loop0: 4 KiB, 4096 bytes, 8 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop1: 219.19 MiB, 229834752 bytes, 448896 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop2: 111.73 MiB, 117153792 bytes, 228816 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop3: 61.89 MiB, 64901120 bytes, 126760 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop4: 61.92 MiB, 64925696 bytes, 126808 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop5: 155.63 MiB, 163188736 bytes, 318728 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop6: 162.22 MiB, 170102784 bytes, 332232 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop7: 248.76 MiB, 260841472 bytes, 509456 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/sda: 3.64 TiB, 4000787030016 bytes, 7814037168 sectors
+Disk model: WDC WD40EMAZ-51T
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disklabel type: gpt
+Disk identifier: 94638853-85E3-470B-B689-C7632FBB6C0A
+
+Device          Start        End    Sectors  Size Type
+/dev/sda1        2048 7814033407 7814031360  3.6T Microsoft basic data
+/dev/sda2  7814033408 7814037134       3727  1.8M Linux filesystem
+
+
+Disk /dev/sdb: 111.79 GiB, 120034123776 bytes, 234441648 sectors
+Disk model: Samsung SSD 750 
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 5E2150C1-8C99-4FAC-A660-FA7AED315133
+
+Device         Start       End   Sectors  Size Type
+/dev/sdb1       2048  39999487  39997440 19.1G Linux swap
+/dev/sdb2   39999488  98592767  58593280 27.9G Linux filesystem
+/dev/sdb3   98592768 233359359 134766592 64.3G Linux filesystem
+/dev/sdb4  233359360 234440703   1081344  528M EFI System
+
+
+Disk /dev/sdc: 232.89 GiB, 250059350016 bytes, 488397168 sectors
+Disk model: WDC WDS250G2B0A-
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+Disklabel type: gpt
+Disk identifier: 7BF90863-CA4F-4566-918D-EF43247B0B60
+
+Device     Start       End   Sectors   Size Type
+/dev/sdc1   2048 488396799 488394752 232.9G Microsoft basic data
+
+
+Disk /dev/sdd: 931.51 GiB, 1000203804160 bytes, 1953523055 sectors
+Disk model: TOSHIBA DT01ACA1
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 4096 bytes
+I/O size (minimum/optimal): 4096 bytes / 4096 bytes
+Disklabel type: dos
+Disk identifier: 0xe4b4bd91
+
+Device     Boot Start        End    Sectors   Size Id Type
+/dev/sdd1        2048 1953519615 1953517568 931.5G  7 HPFS/NTFS/exFAT
+
+
+Disk /dev/loop8: 81.26 MiB, 85209088 bytes, 166424 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop9: 45.86 MiB, 48087040 bytes, 93920 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop10: 43.63 MiB, 45748224 bytes, 89352 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop11: 44.7 MiB, 46870528 bytes, 91544 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop12: 284 KiB, 290816 bytes, 568 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
+
+Disk /dev/loop13: 284 KiB, 290816 bytes, 568 sectors
+Units: sectors of 1 * 512 = 512 bytes
+Sector size (logical/physical): 512 bytes / 512 bytes
+I/O size (minimum/optimal): 512 bytes / 512 bytes
+
