@@ -5,11 +5,11 @@
 생년월일|000000 (주민등록번호 앞자리)|
 비밀번호|0000|
    
-[자가진단 자동화.py](https://github.com/SimHwaseop/auto-jagajindan/blob/master/%EB%B0%98%EC%AF%A4%20%EC%99%84%EC%84%B1.py)
+[자가진단 자동화.py](https://github.com/SimHwaseop/auto-jagajindan/blob/master/auto_jagajindan.py)
+## Selenium을 활용한 자가진단 자동화 프로그램 개발 보고서
 
 파이썬을 이용하여 개발하였고, 파이썬으로 가장 많이 사용한 것은 Selenium과 BeautifulSoup이고 Selenium은 웹 사이트를 접속하여 정보를 크롤링하거나 웹사이트를 사용자처럼 둔갑하여 기능을 자동화하여 사용할 수 있는 모듈(라이브러리)이고, BeautifulSoup은 requests을 이용하여 웹사이트나 api등에 접속하여 정보를 크롤링할 수 있는 모듈이다.
 
-## Selenium을 활용한 자가진단 자동화 프로그램 개발 보고서
 #### 배경
 교육부에서 시행한 '건강상태자가진단'은 시행할 때부터 학생들의 의문, 그러니까 사용시에 일어나는 효과가미미하거나 없다는 의문이 제기 되었고, 또 다른 문제인 반에서 '건강상태자가진단'을 하지 않을 시에 휴대전화를 압수하는 규칙이 생겨난 뒤로 이 프로그램을 만들어야겠다는 확신이 어들 만들게됨 .
       
